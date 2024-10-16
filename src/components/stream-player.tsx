@@ -116,6 +116,46 @@ export function StreamPlayer({ isHost = false }) {
   };
 
   return (
+    <>
+      <video
+        ref={localVideoEl}
+        className="w-full h-[400px] object-contain -scale-x-100 bg-transparent"
+      />
+      <div className="flex flex-row w-[400px] pt-[30px] m-auto ">
+        <Button
+          size="2"
+          variant="soft"
+          disabled={!Boolean(roomName)}
+          className="mr-4"
+          onClick={() =>
+            copy(`${window.location.origin}/watch/${roomName}`)
+          }
+        >
+          {roomState === ConnectionState.Connected ? (
+            <>
+              {roomName} <CopyIcon />
+            </>
+          ) : (
+            "Loading..."
+          )}
+        </Button>
+        {roomName && canHost && (
+            <MediaDeviceSettings />
+        )}
+        {roomName && canHost && (
+          <>
+            {roomMetadata?.creator_identity !== localParticipant.identity && (
+              <Button size="2" onClick={onLeaveStage}>
+                Leave stage
+              </Button>
+            )}
+          </>
+        )}
+      </div>
+    </>
+  );
+
+  return (
     <div className="relative h-full w-full bg-black">
       <Grid className="w-full h-full absolute" gap="2">
         {canHost && (
@@ -124,26 +164,11 @@ export function StreamPlayer({ isHost = false }) {
               className="absolute w-full h-full"
               align="center"
               justify="center"
-            >
-              <Avatar
-                size="9"
-                fallback={localParticipant.identity[0] ?? "?"}
-                radius="full"
-              />
-            </Flex>
+            ></Flex>
             <video
               ref={localVideoEl}
-              className="absolute w-full h-full object-contain -scale-x-100 bg-transparent"
+              className="absolute w-full h-[400px] object-contain -scale-x-100 bg-transparent"
             />
-            <div className="absolute w-full h-full">
-              <Badge
-                variant="outline"
-                color="gray"
-                className="absolute bottom-2 right-2"
-              >
-                {localParticipant.identity} (you)
-              </Badge>
-            </div>
           </div>
         )}
         {remoteVideoTracks.map((t) => (
@@ -152,38 +177,22 @@ export function StreamPlayer({ isHost = false }) {
               className="absolute w-full h-full"
               align="center"
               justify="center"
-            >
-              <Avatar
-                size="9"
-                fallback={t.participant.identity[0] ?? "?"}
-                radius="full"
-              />
-            </Flex>
+            ></Flex>
             <VideoTrack
               trackRef={t}
               className="absolute w-full h-full bg-transparent"
             />
-            <div className="absolute w-full h-full">
-              <Badge
-                variant="outline"
-                color="gray"
-                className="absolute bottom-2 right-2"
-              >
-                {t.participant.identity}
-              </Badge>
-            </div>
           </div>
         ))}
       </Grid>
       {remoteAudioTracks.map((t) => (
         <AudioTrack trackRef={t} key={t.participant.identity} />
       ))}
-      <ConfettiCanvas />
       <StartAudio
         label="Click to allow audio playback"
         className="absolute top-0 h-full w-full bg-gray-2-translucent text-white"
       />
-      <div className="absolute top-0 w-full p-2">
+      <div className="top-0 w-full p-2">
         <Flex justify="between" align="end">
           <Flex gap="2" justify="center" align="center">
             <Button
@@ -223,30 +232,6 @@ export function StreamPlayer({ isHost = false }) {
                 </Text>
               </Flex>
             )}
-            <PresenceDialog isHost={isHost}>
-              <div className="relative">
-                {showNotification && (
-                  <div className="absolute flex h-3 w-3 -top-1 -right-1">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-6 bg-accent-11 opacity-75"></span>
-                    <span className="relative inline-flex rounded-6 h-3 w-3 bg-accent-11"></span>
-                  </div>
-                )}
-                <Button
-                  size="1"
-                  variant="soft"
-                  disabled={roomState !== ConnectionState.Connected}
-                >
-                  {roomState === ConnectionState.Connected ? (
-                    <EyeOpenIcon />
-                  ) : (
-                    <EyeClosedIcon />
-                  )}
-                  {roomState === ConnectionState.Connected
-                    ? participants.length
-                    : ""}
-                </Button>
-              </div>
-            </PresenceDialog>
           </Flex>
         </Flex>
       </div>

@@ -7,7 +7,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Livestream with LiveKit",
+  title: "",
   description: "A sample full-stack application built with LiveKit",
 };
 

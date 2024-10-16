@@ -45,7 +45,7 @@ export function MediaDeviceSettings() {
     <>
       <Flex>
         <Button
-          size="1"
+          size="2"
           variant={micEnabled ? "soft" : "surface"}
           onClick={() => setMicEnabled(!micEnabled)}
         >
@@ -53,11 +53,11 @@ export function MediaDeviceSettings() {
         </Button>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger disabled={!micEnabled}>
-            <Button variant="soft" size="1">
+            <Button variant="soft" size="2">
               <CaretDownIcon />
             </Button>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content size="1">
+          <DropdownMenu.Content size="2">
             {microphoneDevices.map((d) => (
               <DropdownMenu.Item
                 key={d.deviceId}
@@ -72,9 +72,10 @@ export function MediaDeviceSettings() {
           </DropdownMenu.Content>
         </DropdownMenu.Root>
       </Flex>
+      <div className="w-[20px]"></div>
       <Flex>
         <Button
-          size="1"
+          size="2"
           variant={camEnabled ? "soft" : "surface"}
           onClick={() => setCamEnabled(!camEnabled)}
         >
@@ -82,11 +83,11 @@ export function MediaDeviceSettings() {
         </Button>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger disabled={!camEnabled}>
-            <Button variant="soft" size="1">
+            <Button variant="soft" size="2">
               <CaretDownIcon />
             </Button>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content size="1">
+          <DropdownMenu.Content size="2">
             {cameraDevices.map((d) => (
               <DropdownMenu.Item
                 key={d.deviceId}

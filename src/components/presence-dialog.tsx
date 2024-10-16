@@ -161,11 +161,11 @@ function ParticipantListItem({
   return (
     <Flex key={participant.sid} justify="between">
       <Flex align="center" gap="2">
-        <Avatar
+        {/* <Avatar
           size="1"
           fallback={participant.identity[0] ?? <PersonIcon />}
           radius="full"
-        />
+        /> */}
         <Text className={isCurrentUser ? "text-accent-11" : ""}>
           {participant.identity}
           {isCurrentUser && " (you)"}

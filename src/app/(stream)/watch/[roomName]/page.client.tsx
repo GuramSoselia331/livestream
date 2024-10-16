@@ -65,11 +65,11 @@ export default function WatchPage({
             </Text>
             <TextField.Root>
               <TextField.Slot>
-                <Avatar
+                {/* <Avatar
                   size="1"
                   radius="full"
                   fallback={name ? name[0] : <PersonIcon />}
-                />
+                /> */}
               </TextField.Slot>
               <TextField.Input
                 placeholder="Roger Dunn"
@@ -107,11 +107,11 @@ export default function WatchPage({
             <Box className="flex-1 bg-gray-1">
               <StreamPlayer />
             </Box>
-            <ReactionBar />
+            {/* <ReactionBar /> */}
           </Flex>
-          <Box className="bg-accent-2 min-w-[280px] border-l border-accent-5">
+          {/* <Box className="bg-accent-2 min-w-[280px] border-l border-accent-5">
             <Chat />
-          </Box>
+          </Box> */}
         </Flex>
       </LiveKitRoom>
     </TokenContext.Provider>
